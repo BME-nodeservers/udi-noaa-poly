@@ -22,8 +22,7 @@
     <cmds>
       <sends />
       <accepts>
-        <cmd id="UPDATE_PROFILE" />
-		<cmd id="QUERY" />
+        <cmd id="QUERY" />
       </accepts>
     </cmds>
   </nodeDef>

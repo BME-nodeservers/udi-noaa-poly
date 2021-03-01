@@ -42,27 +42,8 @@ class Controller(udi_interface.Node):
         self.poly.subscribe(self.poly.CUSTOMPARAMS, self.parameterHandler)
         self.poly.subscribe(self.poly.START, self.start, self.address)
         self.poly.subscribe(self.poly.POLL, self.poll)
-        self.poly.subscribe(self.poly.ADDNODEDONE, self.nodesDoneHandler)
         self.poly.ready()
         self.poly.addNode(self)
-
-        """
-        self.params = node_funcs.NSParameters([{
-            'name': 'Station',
-            'default': 'set me',
-            'isRequired': True,
-            'notice': 'NOAA station must be set',
-            },
-            {
-            'name': 'Alert zone/county code',
-            'default': 'set me',
-            'isRequired': False,
-            'notice': 'NOAA Zone/County code for Weather alerts.',
-            },
-            ])
-        """
-
-
 
     # Process changes to customParameters
     def parameterHandler(self, params):
@@ -71,7 +52,7 @@ class Controller(udi_interface.Node):
         
         self.Notices.clear()
         if self.Parameters.Station is not None:
-            self.configurd = True
+            self.configured = True
         else:
             LOGGER.debug('Missing station configuration')
             self.Notices['station'] = 'Please enter a NOAA station ID'
@@ -80,7 +61,7 @@ class Controller(udi_interface.Node):
     def start(self):
         LOGGER.info('Starting node server')
         self.poly.updateProfile()
-        self.setCustomParamsDoc()
+        self.poly.setCustomParamsDoc()
         self.uom = uom.get_uom('imperial')
         
         while not self.configured:
@@ -174,6 +155,9 @@ class Controller(udi_interface.Node):
             LOGGER.info('Skipping alerts because we aren\'t configured yet.')
             return
 
+        if code == '':
+            LOGGER.debug('Skipping alerts because no code configured.')
+            return
 
         try:
             request = 'https://alerts.weather.gov/cap/wwaatmget.php?'
@@ -256,8 +240,7 @@ class Controller(udi_interface.Node):
         LOGGER.info('Stopping node server')
 
     commands = {
-            'QUERY':  do_query,
-            'UPDATE_PROFILE': update_profile,
+            'QUERY':  query,
             }
 
     # For this node server, all of the info is available in the single
