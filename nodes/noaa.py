@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 """
-Polyglot v2 node server NOAA weather data
-Copyright (C) 2020 Robert Paauwe
+Polyglot v3 node server NOAA weather data
+Copyright (C) 2020,2021 Robert Paauwe
 """
 
-try:
-    import polyinterface
-except ImportError:
-    import pgc_interface as polyinterface
+import udi_interface
 import sys
 import time
 import datetime
@@ -16,31 +13,40 @@ import socket
 import math
 import re
 import json
-import node_funcs
 from datetime import timedelta
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import ParseError
 from nodes import uom
 from nodes import conditions
 
-LOGGER = polyinterface.LOGGER
+LOGGER = udi_interface.LOGGER
+Custom = udi_interface.Custom
 
-@node_funcs.add_functions_as_methods(node_funcs.functions)
-class Controller(polyinterface.Controller):
+class Controller(udi_interface.Node):
     id = 'weather'
-    #id = 'controller'
-    hint = [0,0,0,0]
-    def __init__(self, polyglot):
-        super(Controller, self).__init__(polyglot)
-        self.name = 'NOAA Weather'
-        self.address = 'weather'
-        self.primary = self.address
+    def __init__(self, polyglot, primary, address, name):
+        super(Controller, self).__init__(polyglot, primary, address, name)
+        self.poly = polyglot
+        self.name = name
+        self.address = address
+        self.primary = primary
+
+        self.Parameters = Custom(polyglot, 'customparams')
+        self.Notices = Custom(polyglot, 'notices')
+
         self.configured = False
         self.latitude = 0
         self.longitude = 0
         self.force = True
-        self.poly = polyglot
 
+        self.poly.subscribe(self.poly.CUSTOMPARAMS, self.parameterHandler)
+        self.poly.subscribe(self.poly.START, self.start, self.address)
+        self.poly.subscribe(self.poly.POLL, self.poll)
+        self.poly.subscribe(self.poly.ADDNODEDONE, self.nodesDoneHandler)
+        self.poly.ready()
+        self.poly.addNode(self)
+
+        """
         self.params = node_funcs.NSParameters([{
             'name': 'Station',
             'default': 'set me',
@@ -54,44 +60,55 @@ class Controller(polyinterface.Controller):
             'notice': 'NOAA Zone/County code for Weather alerts.',
             },
             ])
+        """
 
 
-        self.poly.onConfig(self.process_config)
 
     # Process changes to customParameters
-    def process_config(self, config):
-        (valid, changed) = self.params.update_from_polyglot(config)
-        if changed and not valid:
-            LOGGER.debug('-- configuration not yet valid')
-            self.removeNoticesAll()
-            self.params.send_notices(self)
-        elif changed and valid:
-            LOGGER.debug('-- configuration is valid')
-            self.removeNoticesAll()
-            self.configured = True
-            self.query_conditions()
-        elif valid:
-            LOGGER.debug('-- configuration not changed, but is valid')
+    def parameterHandler(self, params):
+        self.configurd = False
+        self.Parameters.load(params)
+        
+        self.Notices.clear()
+        if self.Parameters.Station is not None:
+            self.configurd = True
+        else:
+            LOGGER.debug('Missing station configuration')
+            self.Notices['station'] = 'Please enter a NOAA station ID'
+
 
     def start(self):
         LOGGER.info('Starting node server')
-        # self.poly.get_server_data(True, None)
-        self.check_params()
-        self.discover()
+        self.poly.updateProfile()
+        self.setCustomParamsDoc()
         self.uom = uom.get_uom('imperial')
+        
+        while not self.configured:
+            time.sleep(10)
+
         LOGGER.info('Node server started')
 
         # Do an initial query to get filled in as soon as possible
         self.query_conditions()
-        self.query_alerts(self.params.get('Alert zone/county code'))
+        if self.Parameters['Alert zone/county code'] is not None:
+            self.query_alerts(self.Parameters['Alert zone/county code'])
         self.force = False
 
-    def longPoll(self):
-        LOGGER.debug('longpoll')
-        self.query_alerts(self.params.get('Alert zone/county code'))
+    def poll(self, polltype):
+        if polltype == 'shortPoll':
+            self.query_conditions()
+        else:
+            if self.Parameters['Alert zone/county code'] is not None:
+                self.query_alerts(self.Parameters['Alert zone/county code'])
 
-    def shortPoll(self):
-        self.query_conditions()
+    def update_driver(self, driver, value, force=False, prec=3):
+        try:
+            if value == None or value == "None":
+                value = "0"
+            self.setDriver(driver, round(float(value), prec), True, force, self.uom[driver])
+            LOGGER.debug('setDriver (%s, %f)' %(driver, float(value)))
+        except:
+            LOGGER.warning('Missing data for driver ' + driver)
 
     def query_conditions(self):
         # Query for the current conditions. We can do this fairly
@@ -104,7 +121,7 @@ class Controller(polyinterface.Controller):
 
         try:
             request = 'http://w1.weather.gov/xml/current_obs/'
-            request += self.params.get('Station') + '.xml'
+            request += self.Parameters['Station'] + '.xml'
 
             c = requests.get(request)
             xdata = c.text
@@ -222,9 +239,10 @@ class Controller(polyinterface.Controller):
             LOGGER.error('Weather alert update failure')
             LOGGER.error(e)
 
-    def query(self):
-        for node in self.nodes:
-            self.nodes[node].reportDrivers()
+    def query(self, cmd=None):
+        self.query_conditions()
+        if self.Parameters['Alert zone/county code'] is not None:
+            self.query_alerts(self.Parameters['Alert zone/county code'])
 
     def discover(self, *args, **kwargs):
         # Create any additional nodes here
@@ -237,47 +255,9 @@ class Controller(polyinterface.Controller):
     def stop(self):
         LOGGER.info('Stopping node server')
 
-    def update_profile(self, command):
-        st = self.poly.installprofile()
-        return st
-
-    def check_params(self):
-        self.removeNoticesAll()
-
-        if self.params.get_from_polyglot(self):
-            LOGGER.debug('All required parameters are set!')
-            self.configured = True
-            LOGGER.debug('Configuration required.')
-            LOGGER.debug('Station = ' + self.params.get('Station'))
-            self.params.send_notices(self)
-
-    def remove_notices_all(self, command):
-        self.removeNoticesAll()
-
-    def set_logging_level(self, level=None):
-        if level is None:
-            try:
-                # level = self.getDriver('GVP')
-                level = self.get_saved_log_level()
-            except:
-                LOGGER.error('set_logging_level: get saved log level failed.')
-
-            if level is None:
-                level = 30
-
-            level = int(level)
-        else:
-            level = int(level['value'])
-
-        # self.setDriver('GVP', level, True, True)
-        self.save_log_level(level)
-        LOGGER.info('set_logging_level: Setting log level to %d' % level)
-        LOGGER.setLevel(level)
-
     commands = {
+            'QUERY':  do_query,
             'UPDATE_PROFILE': update_profile,
-            'REMOVE_NOTICES_ALL': remove_notices_all,
-            'DEBUG': set_logging_level,
             }
 
     # For this node server, all of the info is available in the single

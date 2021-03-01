@@ -541,6 +541,8 @@ def phrase_to_id(phrase):
         return 0
 
 
+# Alert list here: alerts.weather.gov/cap/product_list.txt
+
 def alert_to_id(alert):
     if alert == 'Blizzard Warning':
         return 1

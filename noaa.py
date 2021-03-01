@@ -1,25 +1,22 @@
 #!/usr/bin/env python3
 """
-Polyglot v2 node server NOAA weather data
-Copyright (C) 2020 Robert Paauwe
+Polyglot v3 node server NOAA weather data
+Copyright (C) 2020,2021 Robert Paauwe
 """
 
-try:
-    import polyinterface
-except ImportError:
-    import pgc_interface as polyinterface
+import udi_interface
 import sys
 import time
 from nodes import noaa
 
-LOGGER = polyinterface.LOGGER
+LOGGER = udi_interface.LOGGER
 
 if __name__ == "__main__":
     try:
-        polyglot = polyinterface.Interface('NOAA')
+        polyglot = udi_interface.Interface([noaa.Controller])
         polyglot.start()
-        control = noaa.Controller(polyglot)
-        control.runForever()
+        noaa.Controller(polyglot, 'controller', 'controller', 'NOAA Weather')
+        polyglot.runForever()
     except (KeyboardInterrupt, SystemExit):
         sys.exit(0)
         

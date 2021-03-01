@@ -22,35 +22,8 @@
     <cmds>
       <sends />
       <accepts>
-        <cmd id="DISCOVER" />
-        <cmd id="REMOVE_NOTICES_ALL" />
         <cmd id="UPDATE_PROFILE" />
-		<cmd id="DEBUG">
-			<p id="" editor="DEBUG" init="GVP"/>
-		</cmd>
-      </accepts>
-    </cmds>
-  </nodeDef>
-
-  <nodeDef id="daily" nodeType="139" nls="ctl">
-    <editors />
-    <sts>
-      <st id="GV19" editor="DAY" />
-      <st id="GV0" editor="TEMPERATURE" />
-      <st id="GV1" editor="TEMPERATURE" />
-      <st id="CLIHUM" editor="PERCENT" />
-      <st id="BARPRES" editor="PRESSURE" />
-      <st id="GV13" editor="WEATHER" />
-      <st id="GV6" editor="RAIN" />
-      <st id="RAINRT" editor="RATE" />
-      <st id="GV7" editor="SPEED" />
-      <st id="GV8" editor="SPEED" />
-      <st id="GV18" editor="PERCENT" />
-      <st id="GV20" editor="ET" />
-    </sts>
-    <cmds>
-      <sends />
-      <accepts>
+		<cmd id="QUERY" />
       </accepts>
     </cmds>
   </nodeDef>

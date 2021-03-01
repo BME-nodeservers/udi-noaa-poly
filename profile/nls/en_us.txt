@@ -1,44 +1,17 @@
 # controller
 ND-weather-NAME = Weather Data
 ND-weather-ICON = Weather
-CMD-ctl-DISCOVER-NAME = Re-Discover
 CMD-ctl-UPDATE_PROFILE-NAME = Update Profile
-CMD-ctl-REMOVE_NOTICES_ALL-NAME = Remove Notices
-CMD-ctl-DEBUG-NAME = Log Level
+CMD-ctl-QUERY-NAME = Query
 ST-ctl-ST-NAME = NodeServer Online
 ST-ctl-CLITEMP-NAME = Temperature
 ST-ctl-CLIHUM-NAME = Humidity
 ST-ctl-DEWPT-NAME = Dew Point
 ST-ctl-BARPRES-NAME = Pressure
 ST-ctl-WINDDIR-NAME = Wind Direction
-ST-ctl-DISTANC-NAME = Visibility
-ST-ctl-LUMIN-NAME = Light
-ST-ctl-SOLRAD-NAME = Solar Radiation
 ST-ctl-SPEED-NAME = Wind Speed
-ST-ctl-RAINRT-NAME = Rain Rate
-ST-ctl-UV-NAME = UV Index
-ST-ctl-TIME-NAME = Alert Expires
-ST-ctl-GV0-NAME = High Temperature
-ST-ctl-GV1-NAME = Low Temperature
-ST-ctl-GV2-NAME = Feels Like
-ST-ctl-GV3-NAME = Heat Index
-ST-ctl-GV4-NAME = Windchill
-ST-ctl-GV5-NAME = Gust Speed
-ST-ctl-GV6-NAME = Precipitation
-ST-ctl-GV7-NAME = Max Wind Speed
-ST-ctl-GV8-NAME = Min Wind Speed
-ST-ctl-GV9-NAME = Moon Phase
-ST-ctl-GV10-NAME = Ozone
-ST-ctl-GV11-NAME = Climate Coverage
-ST-ctl-GV12-NAME = Climate Intensity
+ST-ctl-DISTANC-NAME = Visibility
 ST-ctl-GV13-NAME = Climate Conditions
-ST-ctl-GV14-NAME = Cloud Conditions
-ST-ctl-GV15-NAME = Snow Depth
-ST-ctl-GV16-NAME = UV Index
-ST-ctl-GV17-NAME = Air Quality
-ST-ctl-GV18-NAME = Chance of Rain
-ST-ctl-GV19-NAME = Day
-ST-ctl-GV20-NAME = Evapotranspiration
 ST-ctl-GV21-NAME = Alert
 ST-ctl-GV22-NAME = Alert Status
 ST-ctl-GV23-NAME = Alert Type
@@ -46,50 +19,6 @@ ST-ctl-GV24-NAME = Alert Category
 ST-ctl-GV25-NAME = Alert Severity
 ST-ctl-GV26-NAME = Alert Urgency
 ST-ctl-GV27-NAME = Alert Certainty
-
-ND-daily-NAME = Daily Forecast
-ND-daily-ICON = Weather
-
-EN_RAINTYPE-0 = None
-EN_RAINTYPE-1 = Rain
-EN_RAINTYPE-2 = Hail
-EN_RAINTYPE-3 = Rain & Hail
-
-DBG-0 = Off
-DBG-10 = Debug
-DBG-20 = Info
-DBG-30 = Warning
-DBG-40 = Error
-DBG-50 = Critical
-
-EN_DAY-0 = Monday
-EN_DAY-1 = Tuesday
-EN_DAY-2 = Wednesday
-EN_DAY-3 = Thursday
-EN_DAY-4 = Friday
-EN_DAY-5 = Saturday
-EN_DAY-6 = Sunday
-
-EN_TREND-0 = Falling
-EN_TREND-1 = Steady
-EN_TREND-2 = Rising
-
-EN_CARDINAL-0 = N
-EN_CARDINAL-1 = NNE
-EN_CARDINAL-2 = NE
-EN_CARDINAL-3 = ENE
-EN_CARDINAL-4 = E
-EN_CARDINAL-5 = ESE
-EN_CARDINAL-6 = SE
-EN_CARDINAL-7 = SSE
-EN_CARDINAL-8 = S
-EN_CARDINAL-9 = SSW
-EN_CARDINAL-10 = SW
-EN_CARDINAL-11 = WSW
-EN_CARDINAL-12 = W
-EN_CARDINAL-13 = WNW
-EN_CARDINAL-14 = NW
-EN_CARDINAL-15 = NNW
 
 EN_WEATHER-0 = Unknown
 EN_WEATHER-1 = Mostly Cloudy
