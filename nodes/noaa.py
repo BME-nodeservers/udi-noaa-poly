@@ -55,7 +55,7 @@ class Controller(udi_interface.Node):
             self.configured = True
         else:
             LOGGER.debug('Missing station configuration')
-            self.Notices['station'] = 'Please enter a NOAA station ID'
+            self.Notices['station'] = 'Please configure a NOAA station ID'
 
 
     def start(self):
@@ -63,6 +63,9 @@ class Controller(udi_interface.Node):
         self.poly.updateProfile()
         self.poly.setCustomParamsDoc()
         self.uom = uom.get_uom('imperial')
+
+        if self.Parameters.Station is None:
+            self.Notices['station'] = 'Please configure a NOAA station ID'
         
         while not self.configured:
             time.sleep(10)
