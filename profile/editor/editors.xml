@@ -17,7 +17,7 @@
         <range uom="76" min="0" max="360" prec="0" />
     </editor>
     <editor id="WEATHER">
-        <range uom="25" min="0" max="268" nls="EN_WEATHER" />
+        <range uom="25" min="0" max="269" nls="EN_WEATHER" />
     </editor>
     <editor id="PRESSURE">
         <range uom="23" min="25" max="33" prec="3" />
