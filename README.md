@@ -55,6 +55,8 @@ The settings for this node are:
 2. ISY firmware 5.3.x or later
 
 # Release Notes
+- 2.0.1 04/18/2022
+   - Update to use the latest udi_interface module
 - 2.0.0 03/01/2021
    - Updated to run on Polyglot Version 3
 - 1.1.2 02/16/2021
