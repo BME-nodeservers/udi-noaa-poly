@@ -20,6 +20,10 @@ ST-ctl-GV25-NAME = Alert Severity
 ST-ctl-GV26-NAME = Alert Urgency
 ST-ctl-GV27-NAME = Alert Certainty
 
+STATUS-0 = Disconnected
+STATUS-1 = Connected
+STATUS-2 = Failed
+
 EN_WEATHER-0 = Unknown
 EN_WEATHER-1 = Mostly Cloudy
 EN_WEATHER-2 = Mostly Cloudy with Haze

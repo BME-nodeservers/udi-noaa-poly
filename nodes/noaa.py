@@ -43,7 +43,7 @@ class Controller(udi_interface.Node):
         self.poly.subscribe(self.poly.START, self.start, self.address)
         self.poly.subscribe(self.poly.POLL, self.poll)
         self.poly.ready()
-        self.poly.addNode(self)
+        self.poly.addNode(self, conn_status="ST")
 
     # Process changes to customParameters
     def parameterHandler(self, params):
@@ -249,7 +249,7 @@ class Controller(udi_interface.Node):
     # For this node server, all of the info is available in the single
     # controller node.
     drivers = [
-            {'driver': 'ST', 'value': 1, 'uom': 2},   # node server status
+            {'driver': 'ST', 'value': 0, 'uom': 25},   # node server status
             {'driver': 'CLITEMP', 'value': 0, 'uom': 17},  # temperature
             {'driver': 'CLIHUM', 'value': 0, 'uom': 22},   # humidity
             {'driver': 'DEWPT', 'value': 0, 'uom': 17},    # dewpoint

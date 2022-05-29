@@ -55,6 +55,10 @@ The settings for this node are:
 2. ISY firmware 5.3.x or later
 
 # Release Notes
+- 2.0.2 05/29/2022
+   - Use new PG3 tristate status
+   - Update to latest UDI_Interface
+   - Send version number from start
 - 2.0.1 04/18/2022
    - Update to use the latest udi_interface module
 - 2.0.0 03/01/2021

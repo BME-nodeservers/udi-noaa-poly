@@ -14,7 +14,7 @@ LOGGER = udi_interface.LOGGER
 if __name__ == "__main__":
     try:
         polyglot = udi_interface.Interface([noaa.Controller])
-        polyglot.start()
+        polyglot.start('2.0.2')
         noaa.Controller(polyglot, 'controller', 'controller', 'NOAA Weather')
         polyglot.runForever()
     except (KeyboardInterrupt, SystemExit):

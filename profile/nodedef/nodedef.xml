@@ -2,7 +2,7 @@
   <nodeDef id="weather" nodeType="139" nls="ctl">
     <editors />
     <sts>
-      <st id="ST" editor="bool" />
+      <st id="ST" editor="status" />
       <st id="CLITEMP" editor="TEMPERATURE" />
       <st id="CLIHUM" editor="PERCENT" />
       <st id="DEWPT" editor="TEMPERATURE" />

@@ -2,6 +2,9 @@
     <editor id="bool">
         <range uom="2" subset="0,1" />
     </editor>
+    <editor id="status">
+        <range uom="25" subset="0,1,2" nls="STATUS" />
+    </editor>
     <editor id="TEMPERATURE">
         <range uom="17" min="-50" max="150" step="1" prec="1" />
         <range uom="4" min="-50" max="100" step="1" prec="1" />
