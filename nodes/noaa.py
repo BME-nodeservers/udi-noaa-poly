@@ -107,10 +107,11 @@ class Controller(udi_interface.Node):
             request = 'http://w1.weather.gov/xml/current_obs/'
             request += self.Parameters['Station'] + '.xml'
 
+            LOGGER.debug('Request = {}'.format(request))
             c = requests.get(request)
             xdata = c.text
             c.close()
-            #LOGGER.debug(xdata)
+            LOGGER.debug(xdata)
 
             if xdata == None:
                 LOGGER.error('Current condition query returned no data')
