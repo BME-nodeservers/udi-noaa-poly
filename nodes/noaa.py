@@ -73,17 +73,17 @@ class Controller(udi_interface.Node):
         LOGGER.info('Node server started')
 
         # Do an initial query to get filled in as soon as possible
-        self.query_conditions()
+        self.query_conditions(True)
         if self.Parameters['Alert zone/county code'] is not None:
-            self.query_alerts(self.Parameters['Alert zone/county code'])
+            self.query_alerts(self.Parameters['Alert zone/county code'], True)
         self.force = False
 
     def poll(self, polltype):
         if polltype == 'shortPoll':
-            self.query_conditions()
+            self.query_conditions(False)
         else:
             if self.Parameters['Alert zone/county code'] is not None:
-                self.query_alerts(self.Parameters['Alert zone/county code'])
+                self.query_alerts(self.Parameters['Alert zone/county code'], False)
 
     def update_driver(self, driver, value, force=False, prec=3):
         try:
@@ -94,7 +94,7 @@ class Controller(udi_interface.Node):
         except:
             LOGGER.warning('Missing data for driver ' + driver)
 
-    def query_conditions(self):
+    def query_conditions(self, force):
         # Query for the current conditions. We can do this fairly
         # frequently, probably as often as once a minute.
 
@@ -121,23 +121,23 @@ class Controller(udi_interface.Node):
             for item in noaa:
                 LOGGER.debug(item.tag + ' = ' + item.text)
                 if item.tag == 'temp_f':
-                    self.update_driver('CLITEMP', item.text)
+                    self.update_driver('CLITEMP', item.text, force=force)
                 if item.tag == 'temp_c':
                     LOGGER.debug(item.text)
                 if item.tag == 'relative_humidity':
-                    self.update_driver('CLIHUM', item.text)
+                    self.update_driver('CLIHUM', item.text, force=force)
                 if item.tag == 'wind_dir':
                     LOGGER.debug(item.text)
                 if item.tag == 'wind_degrees':
-                    self.update_driver('WINDDIR', item.text)
+                    self.update_driver('WINDDIR', item.text, force=force)
                 if item.tag == 'wind_mph':
-                    self.update_driver('SPEED', item.text)
+                    self.update_driver('SPEED', item.text, force=force)
                 if item.tag == 'wind_kt':
                     LOGGER.debug(item.text)
                 if item.tag == 'pressure_in':
-                    self.update_driver('BARPRES', item.text)
+                    self.update_driver('BARPRES', item.text, force=force)
                 if item.tag == 'dewpoint_f':
-                    self.update_driver('DEWPT', item.text)
+                    self.update_driver('DEWPT', item.text, force=force)
                 if item.tag == 'dewpoint_c':
                     LOGGER.debug(item.text)
                 if item.tag == 'heat_index_f':
@@ -145,15 +145,15 @@ class Controller(udi_interface.Node):
                 if item.tag == 'heat_index_c':
                     LOGGER.debug(item.text)
                 if item.tag == 'visibility_mi':
-                    self.update_driver('DISTANC', item.text)
+                    self.update_driver('DISTANC', item.text, force=force)
                 if item.tag == 'weather':
-                    self.update_driver('GV13', conditions.phrase_to_id(item.text))
+                    self.update_driver('GV13', conditions.phrase_to_id(item.text), force=force)
 
         except Exception as e:
             LOGGER.error('Current observation update failure')
             LOGGER.error(e)
 
-    def query_alerts(self, code):
+    def query_alerts(self, code, force):
         if not self.configured:
             LOGGER.info('Skipping alerts because we aren\'t configured yet.')
             return
@@ -196,7 +196,7 @@ class Controller(udi_interface.Node):
                             LOGGER.debug(item.tag + ' = ' + item.text)
                             if 'event' in item.tag:
                                 LOGGER.debug('ALERT: ' + item.text)
-                                self.update_driver('GV21', conditions.alert_to_id(item.text))
+                                self.update_driver('GV21', conditions.alert_to_id(item.text), force=force)
                             if 'effective' in item.tag:
                                 LOGGER.debug('EFFECTIVE: ' + item.text)
                             if 'expires' in item.tag:
@@ -205,31 +205,32 @@ class Controller(udi_interface.Node):
                                 #self.update_driver('TIME', 100343434)
                             if 'status' in item.tag:
                                 LOGGER.debug('STATUS: ' + item.text)
-                                self.update_driver('GV22', conditions.status_to_id(item.text))
+                                self.update_driver('GV22', conditions.status_to_id(item.text), force=force)
                             if 'msgType' in item.tag:
                                 LOGGER.debug('TYPE: ' + item.text)
-                                self.update_driver('GV23', conditions.type_to_id(item.text))
+                                self.update_driver('GV23', conditions.type_to_id(item.text), force=force)
                             if 'category' in item.tag:
                                 LOGGER.debug('CATEGORY: ' + item.text)
-                                self.update_driver('GV24', conditions.category_to_id(item.text))
+                                self.update_driver('GV24', conditions.category_to_id(item.text), force=force)
                             if 'severity' in item.tag:
                                 LOGGER.debug('SEVERITY: ' + item.text)
-                                self.update_driver('GV25', conditions.severity_to_id(item.text))
+                                self.update_driver('GV25', conditions.severity_to_id(item.text), force=force)
                             if 'urgency' in item.tag:
                                 LOGGER.debug('URGENCY: ' + item.text)
-                                self.update_driver('GV26', conditions.urgency_to_id(item.text))
+                                self.update_driver('GV26', conditions.urgency_to_id(item.text), force=force)
                             if 'certainy' in item.tag:
                                 LOGGER.debug('CERTAINY: ' + item.text)
-                                self.update_driver('GV27', conditions.certainy_to_id(item.text))
+                                self.update_driver('GV27', conditions.certainy_to_id(item.text), force=force)
 
         except Exception as e:
             LOGGER.error('Weather alert update failure')
             LOGGER.error(e)
 
     def query(self, cmd=None):
-        self.query_conditions()
+        self.update_driver('ST', 1, force=True)  # Node server on-line status
+        self.query_conditions(True)
         if self.Parameters['Alert zone/county code'] is not None:
-            self.query_alerts(self.Parameters['Alert zone/county code'])
+            self.query_alerts(self.Parameters['Alert zone/county code'], True)
 
     def discover(self, *args, **kwargs):
         # Create any additional nodes here
