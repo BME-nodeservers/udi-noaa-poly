@@ -166,11 +166,12 @@ class Controller(udi_interface.Node):
         try:
             request = 'https://alerts.weather.gov/cap/wwaatmget.php?'
             request += 'x=' + code + '&y=1'
+            LOGGER.debug('request = {}'.format(request))
 
             c = requests.get(request)
             xdata = c.text
             c.close()
-            #LOGGER.debug(xdata)
+            LOGGER.debug(xdata)
 
             if xdata == None:
                 LOGGER.error('Weather alert query returned no data')
@@ -190,6 +191,19 @@ class Controller(udi_interface.Node):
             <cap:severity>Minor</cap:severity>
             <cap:certainty>Likely</cap:certainty>
             """
+
+            # Clear alert data?? this will force a re-trigger of any programs that use these
+            # that's probably a bad thing.
+            '''
+            self.update_driver('GV21', 0, force=force)
+            self.update_driver('GV22', 0, force=force)
+            self.update_driver('GV23', 0, force=force)
+            self.update_driver('GV24', 0, force=force)
+            self.update_driver('GV25', 0, force=force)
+            self.update_driver('GV26', 0, force=force)
+            self.update_driver('GV27', 0, force=force)
+            '''
+
             for entry in noaa:
                 if entry.tag == '{http://www.w3.org/2005/Atom}entry':
                     for item in entry:
@@ -222,6 +236,16 @@ class Controller(udi_interface.Node):
                             if 'certainy' in item.tag:
                                 LOGGER.debug('CERTAINY: ' + item.text)
                                 self.update_driver('GV27', conditions.certainy_to_id(item.text), force=force)
+
+                            if 'title' in item.tag and item.text == 'There are no active watches, warnings or advisories':
+                                LOGGER.debug('Looking for no alerts... {}'.format(item.text))
+                                self.update_driver('GV21', 0, force=force)
+                                self.update_driver('GV22', 0, force=force)
+                                self.update_driver('GV23', 0, force=force)
+                                self.update_driver('GV24', 0, force=force)
+                                self.update_driver('GV25', 0, force=force)
+                                self.update_driver('GV26', 0, force=force)
+                                self.update_driver('GV27', 0, force=force)
 
         except Exception as e:
             LOGGER.error('Weather alert update failure')
