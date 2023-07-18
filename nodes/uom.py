@@ -100,7 +100,7 @@ def get_uom(units):
         }
     else:
         uom = {
-            'ST': 2,   # node server status
+            'ST': 25,   # node server status
             'CLITEMP': 17,  # temperature
             'CLIHUM': 22,   # humidity
             'BARPRES': 23,  # pressure
