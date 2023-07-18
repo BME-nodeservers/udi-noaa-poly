@@ -233,7 +233,7 @@ class Controller(udi_interface.Node):
                             if 'urgency' in item.tag:
                                 LOGGER.debug('URGENCY: ' + item.text)
                                 self.update_driver('GV26', conditions.urgency_to_id(item.text), force=force)
-                            if 'certainy' in item.tag:
+                            if 'certainty' in item.tag:
                                 LOGGER.debug('CERTAINY: ' + item.text)
                                 self.update_driver('GV27', conditions.certainy_to_id(item.text), force=force)
 
