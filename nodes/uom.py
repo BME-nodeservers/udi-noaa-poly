@@ -16,7 +16,7 @@ def get_uom(units):
 
     if unit_cfg == 'metric' or unit_cfg == 'si' or unit_cfg.startswith('m'):
         uom = {
-            'ST': 2,   # node server status
+            'ST': 25,   # node server status
             'CLITEMP': 4,   # temperature
             'CLIHUM': 22,   # humidity
             'BARPRES': 117, # pressure
@@ -58,7 +58,7 @@ def get_uom(units):
         }
     elif unit_cfg == 'uk':
         uom = {
-            'ST': 2,   # node server status
+            'ST': 25,   # node server status
             'CLITEMP': 4,   # temperature
             'CLIHUM': 22,   # humidity
             'BARPRES': 117, # pressure
