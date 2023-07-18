@@ -544,106 +544,134 @@ def phrase_to_id(phrase):
 # Alert list here: alerts.weather.gov/cap/product_list.txt
 
 def alert_to_id(alert):
-    if alert == 'Blizzard Warning':
-        return 1
-    elif alert == 'Costal Flood Watch':
-        return 2
-    elif alert == 'Costal Flood Warning':
-        return 3
-    elif alert == 'Dust Storm Warning':
-        return 4
-    elif alert == 'Extreme Wind Warning':
-        return 5
-    elif alert == 'Flash Flood Watch':
-        return 6
-    elif alert == 'Flash Flood Warning':
-        return 7
-    elif alert == 'Flash Flood Statement':
-        return 8
-    elif alert == 'Flood Watch':
-        return 9
-    elif alert == 'Flood Warning':
-        return 10
-    elif alert == 'Flood Statement':
-        return 11
-    elif alert == 'High Wind Watch':
-        return 12
-    elif alert == 'High Wind Warning':
-        return 13
-    elif alert == 'Hurrican Watch':
-        return 14
-    elif alert == 'Hurrican Warning':
-        return 15
-    elif alert == 'Hurrican Statement':
-        return 16
-    elif alert == 'Severe Thunderstorm Watch':
-        return 17
-    elif alert == 'Severe Thunderstorm Warning':
-        return 18
-    elif alert == 'Severe Weather Statement':
-        return 19
-    elif alert == 'Snow Squall Warning':
-        return 20
-    elif alert == 'Special Marine Warning':
-        return 21
-    elif alert == 'Special Weather Statement':
-        return 22
-    elif alert == 'Storm Surge Watch':
-        return 23
-    elif alert == 'Storm Surge Warning':
-        return 24
-    elif alert == 'Tornado Watch':
-        return 25
-    elif alert == 'Tornado Warning':
-        return 26
-    elif alert == 'Tropical Storm Watch':
-        return 27
-    elif alert == 'Tropical Storm Warning':
-        return 28
-    elif alert == 'Tsunami Watch':
-        return 29
-    elif alert == 'Tsunami Warning':
-        return 30
-    elif alert == 'Winter Storm Watch':
-        return 31
-    elif alert == 'Winter Storm Warning':
-        return 32
-    elif alert == 'Avalanche Watch':
-        return 33
-    elif alert == 'Avalanche Warning':
-        return 34
-    elif alert == 'Child Abduction Emergency':
-        return 35
-    elif alert == 'Civil Danger Warning':
-        return 36
-    elif alert == 'Civil Emergency Message':
-        return 37
-    elif alert == 'Earthquake Warning':
-        return 38
-    elif alert == 'Earthquake Immediate':
-        return 39
-    elif alert == 'Fire Warning':
-        return 40
-    elif alert == 'Hazardous Materials Warning':
-        return 41
-    elif alert == 'Law Enforcement Warning':
-        return 42
-    elif alert == 'Local Area Emergency':
-        return 43
-    elif alert == '911 Telephone Outage Emergency':
-        return 44
-    elif alert == 'Nuclear Power Plant Warning':
-        return 45
-    elif alert == 'Radiological Hazard Warning':
-        return 46
-    elif alert == 'Shelter in Place Warning':
-        return 47
-    elif alert == 'Volcano Warning':
-        return 48
-    elif alert == 'Dense Fog Advisory':
-        return 49
-    elif alert == 'Winter Weather Advisory':
-        return 50
+
+    if alert == '911 Telephone Outage': return 1
+    elif alert == 'Administrative Message': return 2
+    elif alert == 'Air Quality Alert': return 3
+    elif alert == 'Air Stagnation Advisory': return 4
+    elif alert == 'Arroyo And Small Stream Flood Advisory': return 5
+    elif alert == 'Ashfall Advisory': return 6
+    elif alert == 'Ashfall Warning': return 7
+	elif alert == 'Avalanche Advisory': return 8
+	elif alert == 'Avalanche Warning': return 9
+	elif alert == 'Avalanche Watch': return 10
+	elif alert == 'Beach Hazards Statement': return 11
+	elif alert == 'Blizzard Warning': return 12
+	elif alert == 'Blizzard Watch': return 13
+	elif alert == 'Blowing Dust Advisory': return 14
+	elif alert == 'Blowing Dust Warning': return 15
+	elif alert == 'Blue Alert': return 16
+	elif alert == 'Brisk Wind Advisory': return 17
+	elif alert == 'Child Abduction Emergency': return 18
+	elif alert == 'Civil Danger Warning': return 19
+	elif alert == 'Civil Emergency Message': return 20
+	elif alert == 'Coastal Flood Advisory': return 21
+	elif alert == 'Coastal Flood Statement': return 22
+	elif alert == 'Coastal Flood Warning': return 23
+	elif alert == 'Coastal Flood Watch': return 24
+	elif alert == 'Dense Fog Advisory': return 25
+	elif alert == 'Dense Smoke Advisory': return 26
+	elif alert == 'Dust Advisory': return 27
+	elif alert == 'Dust Storm Warning': return 28
+	elif alert == 'Earthquake Warning': return 29
+	elif alert == 'Evacuation - Immediate': return 30
+	elif alert == 'Excessive Heat Warning': return 31
+	elif alert == 'Excessive Heat Watch': return 32
+	elif alert == 'Extreme Cold Warning': return 33
+	elif alert == 'Extreme Cold Watch': return 34
+	elif alert == 'Extreme Fire Danger': return 35
+	elif alert == 'Extreme Wind Warning': return 36
+	elif alert == 'Fire Warning': return 37
+	elif alert == 'Fire Weather Watch': return 38
+	elif alert == 'Flash Flood Statement': return 39
+	elif alert == 'Flash Flood Warning': return 40
+	elif alert == 'Flash Flood Watch': return 41
+	elif alert == 'Flood Advisory': return 42
+	elif alert == 'Flood Statement': return 43
+	elif alert == 'Flood Warning': return 44
+	elif alert == 'Flood Watch': return 45
+	elif alert == 'Freeze Warning': return 46
+	elif alert == 'Freeze Watch': return 47
+	elif alert == 'Freezing Fog Advisory': return 48
+	elif alert == 'Freezing Rain Advisory': return 49
+	elif alert == 'Freezing Spray Advisory': return 50
+	elif alert == 'Frost Advisory': return 51
+	elif alert == 'Gale Warning': return 52
+	elif alert == 'Gale Watch': return 53
+	elif alert == 'Hard Freeze Warning': return 54
+	elif alert == 'Hard Freeze Watch': return 55
+	elif alert == 'Hazardous Materials Warning': return 56
+	elif alert == 'Hazardous Seas Warning': return 57
+	elif alert == 'Hazardous Seas Watch': return 58
+	elif alert == 'Hazardous Weather Outlook': return 59
+	elif alert == 'Heat Advisory': return 60
+	elif alert == 'Heavy Freezing Spray Warning': return 61
+	elif alert == 'Heavy Freezing Spray Watch': return 62
+	elif alert == 'High Surf Advisory': return 63
+	elif alert == 'High Surf Warning': return 64
+	elif alert == 'High Wind Warning': return 65
+	elif alert == 'High Wind Watch': return 66
+	elif alert == 'Hurricane Force Wind Warning': return 67
+	elif alert == 'Hurricane Force Wind Watch': return 68
+	elif alert == 'Hurricane Local Statement': return 69
+	elif alert == 'Hurricane Warning': return 70
+	elif alert == 'Hurricane Watch': return 71
+	elif alert == 'Hydrologic Advisory': return 72
+	elif alert == 'Hydrologic Outlook': return 73
+	elif alert == 'Ice Storm Warning': return 74
+	elif alert == 'Lake Effect Snow Advisory': return 75
+	elif alert == 'Lake Effect Snow Warning': return 76
+	elif alert == 'Lake Effect Snow Watch': return 77
+	elif alert == 'Lake Wind Advisory': return 78
+	elif alert == 'Lakeshore Flood Advisory': return 79
+	elif alert == 'Lakeshore Flood Statement': return 80
+	elif alert == 'Lakeshore Flood Warning': return 81
+	elif alert == 'Lakeshore Flood Watch': return 82
+	elif alert == 'Law Enforcement Warning': return 83
+	elif alert == 'Local Area Emergency': return 84
+	elif alert == 'Low Water Advisory': return 85
+	elif alert == 'Marine Weather Statement': return 86
+	elif alert == 'Nuclear Power Plant Warning': return 87
+	elif alert == 'Radiological Hazard Warning': return 88
+	elif alert == 'Red Flag Warning': return 89
+	elif alert == 'Rip Current Statement': return 90
+	elif alert == 'Severe Thunderstorm Warning': return 91
+	elif alert == 'Severe Thunderstorm Watch': return 92
+	elif alert == 'Severe Weather Statement': return 93
+	elif alert == 'Shelter In Place Warning': return 94
+	elif alert == 'Short Term Forecast': return 95
+	elif alert == 'Small Craft Advisory': return 96
+	elif alert == 'Small Craft Advisory For Hazardous Seas': return 97
+	elif alert == 'Small Craft Advisory For Rough Bar': return 98
+	elif alert == 'Small Craft Advisory For Winds': return 99
+	elif alert == 'Small Stream Flood Advisory': return 100
+	elif alert == 'Snow Squall Warning': return 101
+	elif alert == 'Special Marine Warning': return 102
+	elif alert == 'Special Weather Statement': return 103
+	elif alert == 'Storm Surge Warning': return 104
+	elif alert == 'Storm Surge Watch': return 105
+	elif alert == 'Storm Warning': return 105
+	elif alert == 'Storm Watch': return 107
+	elif alert == 'Test': return 108
+	elif alert == 'Tornado Warning': return 109
+	elif alert == 'Tornado Watch': return 110
+	elif alert == 'Tropical Depression Local Statement': return 111
+	elif alert == 'Tropical Storm Local Statement': return 112
+	elif alert == 'Tropical Storm Warning': return 113
+	elif alert == 'Tropical Storm Watch': return 114
+	elif alert == 'Tsunami Advisory': return 115
+	elif alert == 'Tsunami Warning': return 116
+	elif alert == 'Tsunami Watch': return 117
+	elif alert == 'Typhoon Local Statement': return 118
+	elif alert == 'Typhoon Warning': return 119
+	elif alert == 'Typhoon Watch': return 120
+	elif alert == 'Urban And Small Stream Flood Advisory': return 121
+	elif alert == 'Volcano Warning': return 122
+	elif alert == 'Wind Advisory': return 123
+	elif alert == 'Wind Chill Advisory': return 124
+	elif alert == 'Wind Chill Warning': return 125
+	elif alert == 'Wind Chill Watch': return 126
+	elif alert == 'Winter Storm Warning': return 127
     else:
         return 0
 
