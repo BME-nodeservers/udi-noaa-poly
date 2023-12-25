@@ -672,6 +672,9 @@ def alert_to_id(alert):
     elif alert == 'Wind Chill Warning': return 125
     elif alert == 'Wind Chill Watch': return 126
     elif alert == 'Winter Storm Warning': return 127
+    elif alert == 'Winter Storm Watch': return 128
+    elif alert == 'Winter Storm Advisory': return 129
+
     else:
         return 0
 
