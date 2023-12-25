@@ -32,7 +32,7 @@
         <range uom="83"  min="0" max="10000" prec="1" />
     </editor>
 	<editor id="ALERT">
-		<range uom="25" min="0" max="49" NLS="EN_ALERT" />
+		<range uom="25" min="0" max="127" NLS="EN_ALERT" />
 	</editor>
 	<editor id="ALERT_STATUS">
 		<range uom="25" min="0" max="5" NLS="EN_ALERT_STATUS" />
