@@ -164,8 +164,11 @@ class Controller(udi_interface.Node):
             return
 
         try:
-            request = 'https://alerts.weather.gov/cap/wwaatmget.php?'
-            request += 'x=' + code + '&y=1'
+            # as of Jan 31, 2024 the URL for the API has changed
+            #request = 'https://alerts.weather.gov/cap/wwaatmget.php?'
+            #request += 'x=' + code + '&y=1'
+            request = 'https://api.weather.gov/alerts/active.atom?'
+            request += 'zone=' + code
             LOGGER.debug('request = {}'.format(request))
 
             c = requests.get(request)
