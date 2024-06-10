@@ -120,7 +120,7 @@ class Controller(udi_interface.Node):
             LOGGER.debug('Parse XML and set drivers')
             noaa = ET.fromstring(xdata)
             for item in noaa:
-                LOGGER.debug(item.tag + ' = ' + item.text)
+                LOGGER.debug('{} = {}'.format(item.tag, item.text))
                 if item.tag == 'temp_f':
                     self.update_driver('CLITEMP', item.text, force=force)
                 if item.tag == 'temp_c':
