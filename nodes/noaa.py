@@ -104,7 +104,7 @@ class Controller(udi_interface.Node):
 
 
         try:
-            request = 'http://w1.weather.gov/xml/current_obs/'
+            request = 'https://forecast.weather.gov/xml/current_obs/'
             request += self.Parameters['Station'] + '.xml'
 
             LOGGER.debug('Request = {}'.format(request))
