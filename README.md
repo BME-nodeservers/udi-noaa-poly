@@ -25,7 +25,7 @@ The settings for this node are:
 #### Long Poll
 	* How often to poll for alert data (in seconds).  Must be larger than short poll.
 #### Station
-	* The weather station to use for for weather data. Go to https://w1.weather.gov/xml/current_obs/ to look up the station for your area.
+	* The weather station to use for for weather data. Go to https://forecast.weather.gov/xml/current_obs/ to look up the station for your area.
 #### Alert zone/county code
 	* The code from alerts.weather.gov that specify the zone or county you want alerts for.  Look up the code on the site and enter it here, it will typically be a 6 character code.
 
