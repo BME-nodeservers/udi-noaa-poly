@@ -207,6 +207,22 @@ class Controller(udi_interface.Node):
             self.update_driver('GV27', 0, force=force)
             '''
 
+            # What if no entrys in noaa?  Should default to none
+            found = False
+            for child in noaa:
+                if child.tag == "{http://www.w3.org/2005/Atom}entry":
+                    found = True
+
+            if not found:
+                LOGGER.debug('No alerts found.')
+                self.update_driver('GV21', 0, force=force)
+                self.update_driver('GV22', 0, force=force)
+                self.update_driver('GV23', 0, force=force)
+                self.update_driver('GV24', 0, force=force)
+                self.update_driver('GV25', 0, force=force)
+                self.update_driver('GV26', 0, force=force)
+                self.update_driver('GV27', 0, force=force)
+
             for entry in noaa:
                 if entry.tag == '{http://www.w3.org/2005/Atom}entry':
                     for item in entry:
