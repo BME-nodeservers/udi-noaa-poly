@@ -167,6 +167,10 @@ class Controller(udi_interface.Node):
             # as of Jan 31, 2024 the URL for the API has changed
             #request = 'https://alerts.weather.gov/cap/wwaatmget.php?'
             #request += 'x=' + code + '&y=1'
+
+            # as of 5/4/2025, this might be:
+            # https://api.weather.gov/alerts/active/zone/<zoneid>
+            # but it appears to redirect the below automatically??
             request = 'https://api.weather.gov/alerts/active.atom?'
             request += 'zone=' + code
             LOGGER.debug('request = {}'.format(request))
@@ -253,11 +257,11 @@ class Controller(udi_interface.Node):
                                 LOGGER.debug('URGENCY: ' + item.text)
                                 self.update_driver('GV26', conditions.urgency_to_id(item.text), force=force)
                             if 'certainty' in item.tag:
-                                LOGGER.debug('CERTAINY: ' + item.text)
+                                LOGGER.debug('CERTAINTY: ' + item.text)
                                 self.update_driver('GV27', conditions.certainy_to_id(item.text), force=force)
 
                             if 'title' in item.tag and item.text == 'There are no active watches, warnings or advisories':
-                                LOGGER.debug('Looking for no alerts... {}'.format(item.text))
+                                LOGGER.debug('Looking for no active alerts... {}'.format(item.text))
                                 self.update_driver('GV21', 0, force=force)
                                 self.update_driver('GV22', 0, force=force)
                                 self.update_driver('GV23', 0, force=force)
@@ -294,23 +298,23 @@ class Controller(udi_interface.Node):
     # For this node server, all of the info is available in the single
     # controller node.
     drivers = [
-            {'driver': 'ST', 'value': 0, 'uom': 25},   # node server status
-            {'driver': 'CLITEMP', 'value': 0, 'uom': 17},  # temperature
-            {'driver': 'CLIHUM', 'value': 0, 'uom': 22},   # humidity
-            {'driver': 'DEWPT', 'value': 0, 'uom': 17},    # dewpoint
-            {'driver': 'BARPRES', 'value': 0, 'uom': 117}, # pressure
-            {'driver': 'WINDDIR', 'value': 0, 'uom': 76},  # direction
-            {'driver': 'SPEED', 'value': 0, 'uom': 49},    # wind speed
-            {'driver': 'DISTANC', 'value': 0, 'uom': 83},  # visibility
-            {'driver': 'GV13', 'value': 0, 'uom': 25},     # weather
-            {'driver': 'GV21', 'value': 0, 'uom': 25},     # alert
-            {'driver': 'GV22', 'value': 0, 'uom': 25},     # status
-            {'driver': 'GV23', 'value': 0, 'uom': 25},     # type
-            {'driver': 'GV24', 'value': 0, 'uom': 25},     # category
-            {'driver': 'GV25', 'value': 0, 'uom': 25},     # severity
-            {'driver': 'GV26', 'value': 0, 'uom': 25},     # urgnecy
-            {'driver': 'GV27', 'value': 0, 'uom': 25},     # certainy
-            {'driver': 'GVP', 'value': 30, 'uom': 25},     # log level
+            {'driver': 'ST', 'value': 0, 'uom': 25, 'name': 'plugin status'},       # node server status
+            {'driver': 'CLITEMP', 'value': 0, 'uom': 17, 'name': 'temperature'},    # temperature
+            {'driver': 'CLIHUM', 'value': 0, 'uom': 22, 'name': 'humidity'},        # humidity
+            {'driver': 'DEWPT', 'value': 0, 'uom': 17, 'name': 'dewpoint'},         # dewpoint
+            {'driver': 'BARPRES', 'value': 0, 'uom': 117, 'name': 'pressure'},      # pressure
+            {'driver': 'WINDDIR', 'value': 0, 'uom': 76, 'name': 'wind direction'}, # direction
+            {'driver': 'SPEED', 'value': 0, 'uom': 49, 'name': 'wind speed'},       # wind speed
+            {'driver': 'DISTANC', 'value': 0, 'uom': 83, 'name': 'visibility'},     # visibility
+            {'driver': 'GV13', 'value': 0, 'uom': 25, 'name': 'weather condition'}, # weather
+            {'driver': 'GV21', 'value': 0, 'uom': 25, 'name': 'alert event'},       # alert
+            {'driver': 'GV22', 'value': 0, 'uom': 25, 'name': 'alert status'},      # status
+            {'driver': 'GV23', 'value': 0, 'uom': 25, 'name': 'alert type'},        # type
+            {'driver': 'GV24', 'value': 0, 'uom': 25, 'name': 'alert category'},    # category
+            {'driver': 'GV25', 'value': 0, 'uom': 25, 'name': 'alert severity'},    # severity
+            {'driver': 'GV26', 'value': 0, 'uom': 25, 'name': 'alert urgency'},     # urgnecy
+            {'driver': 'GV27', 'value': 0, 'uom': 25, 'name': 'alert certainty'},   # certainy
+            {'driver': 'GVP', 'value': 30, 'uom': 25, 'name': 'log level'},         # log level
             ]
 
 
