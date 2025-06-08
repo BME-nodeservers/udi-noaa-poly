@@ -232,7 +232,7 @@ class Controller(udi_interface.Node):
                     for item in entry:
                         if item.text:
                             LOGGER.debug(item.tag + ' = ' + item.text)
-                            if 'event' in item.tag:
+                            if 'event' in item.tag and not 'eventCode' in item.tag:
                                 LOGGER.debug('ALERT: ' + item.text)
                                 self.update_driver('GV21', conditions.alert_to_id(item.text), force=force)
                             if 'effective' in item.tag:
