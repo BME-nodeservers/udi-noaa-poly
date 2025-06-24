@@ -33,7 +33,7 @@ def phrase_to_id(phrase):
         return 255
     elif phrase == 'Overcast and Breezy':
         return 14
-    elif phrase == 'Fog/MistFog':
+    elif phrase == 'Fog/Mist Fog':
         return 15
     elif phrase == 'Freezing Fog':
         return 16
@@ -469,7 +469,7 @@ def phrase_to_id(phrase):
         return 266
     elif phrase == 'Thunderstorm in Vicinity Haze':
         return 221
-    elif phrase == 'Light RainDrizzle':
+    elif phrase == 'Light Rain Drizzle':
         return 222
     elif phrase == 'Light Drizzle':
         return 223
@@ -674,6 +674,8 @@ def alert_to_id(alert):
     elif alert == 'Winter Storm Warning': return 127
     elif alert == 'Winter Storm Watch': return 128
     elif alert == 'Winter Weather Advisory': return 129
+    elif alert == 'Extreme Heat Warning': return 130
+    elif alert == 'Extreme Heat Watch': return 131
 
     else:
         return 0

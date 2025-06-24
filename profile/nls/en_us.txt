@@ -474,4 +474,6 @@ EN_ALERT-126 = Wind Chill Watch
 EN_ALERT-127 = Winter Storm Warning
 EN_ALERT-128 = Winter Storm Watch
 EN_ALERT-129 = Winter Weather Advisory
+EN_ALERT-130 = Extreme Heat Warning
+EN_ALERT-130 = Extreme Heat Watch
 
